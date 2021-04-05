@@ -1,4 +1,5 @@
 #Importing libraries to the project
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -22,13 +23,7 @@ from typing import Optional
 templates = Jinja2Templates(directory="templates")
 
 app = FastAPI()
-origins = [
 
-    "https://GenerateReport/{analysisType}/{occurences}/{legs}/{intermittent}/{consecutiveDays}/{airlineOperator}/{ata}/{messages}/{fromDate}/{toDate}",
-
-    "http://localhost",
-    "http://localhost:8000",
-]
 """Create a list of allowed origins ( as strings)
 """
 app.add_middleware(
@@ -45,10 +40,10 @@ app.add_middleware(
 OutputTableHistory2 = pd.DataFrame()
 MDCeqns_arrayforgraphing = pd.DataFrame()
 
-hostname = "mhirjserver2.database.windows.net"
-db_name = "MHIRJ"
-db_username = "mhirj-admin"
-db_password = "KaranCool123"
+hostname = os.environ.get('hostname','mhirjserver2.database.windows.net')
+db_name = os.environ.get('db_name','MHIRJ')
+db_username = os.environ.get('db_username','mhirj-admin')
+db_password = os.environ.get('db_password','KaranCool123')
 
 CurrentFlightPhaseEnabled = 0
 MDCdataDF = pd.DataFrame()
